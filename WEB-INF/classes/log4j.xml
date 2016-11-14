@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="rootlogAppender" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<param name="MaxFileSize" value="5000KB"/> 
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[ %p ] %d{yyyy-MM-dd HH:mm:ss} %c %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 发邮件（只有ERROR时才会发送！） -->
+	<appender name="mail" class="org.apache.log4j.net.SMTPAppender">
+		<param name="threshold" value="debug" />
+		<!-- 日志的错误级别 <param name="threshold" value="fatal"/> -->
+		<!-- 缓存文件大小，日志达到512K时发送Email -->
+		<param name="BufferSize" value="1" /><!-- 单位K -->
+		<param name="From" value="server91160@163.com" />
+		<param name="SMTPHost" value="smtp.163.com" />
+		<param name="Subject" value="宝安医院日志文件过大" />
+		<param name="To" value="46856470@qq.com" />
+		<param name="SMTPUsername" value="server91160@163.com" />
+		<param name="SMTPPassword" value="12345q" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss.SSS} [%p]-[%c] %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="exlogAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/exlog.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[ %p ] %d{yyyy-MM-dd HH:mm:ss} %c %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="debuglogAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/debuglog.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[ %p ] %d{yyyy-MM-dd HH:mm:ss} %c %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="auditlogAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/auditlog.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[ %p ] %d{yyyy-MM-dd HH:mm:ss} %c %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="perflogAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/perflog.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[ %p ] %d{yyyy-MM-dd HH:mm:ss} %c %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="seclogAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/seclog.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[ %p ] %d{yyyy-MM-dd HH:mm:ss} %c %m%n" />
+		</layout>
+	</appender>
+
+ 
+
+	<category name="exlog">
+		<level value="DEBUG" />
+		<appender-ref ref="exlogAppender" />
+	</category>
+
+	<category name="debuglog">
+		<level value="INFO" />
+		<appender-ref ref="debuglogAppender" />
+	</category>
+
+	<category name="auditlog">
+		<level value="DEBUG" />
+		<appender-ref ref="auditlogAppender" />
+	</category>
+
+	<category name="seclog">
+		<level value="DEBUG" />
+		<appender-ref ref="seclogAppender" />
+	</category>
+
+	<category name="perflog">
+		<level value="OFF" />
+		<appender-ref ref="perflogAppender" />
+	</category>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="rootlogAppender" />
+	</root>
+
+</log4j:configuration>
